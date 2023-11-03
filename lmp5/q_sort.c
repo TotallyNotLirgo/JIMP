@@ -7,7 +7,7 @@ int divide( double v[], int f, int l ) {
 	while( f < l ) {
 		while( f < l && v[f] < v[s] )
 			f++;
-		while( f < l && v[l] > v[s] )
+		while( f < l && v[l] >= v[s] )
 			l--;
 		if( f < l ) {
 			tmp= v[f];
@@ -18,10 +18,20 @@ int divide( double v[], int f, int l ) {
   // zamieniamy element v[s] z v[f]
   // aby v[s] znalazł się pomiędzy
   // mniejszymi i nie-większymi od niego
-	tmp = v[s];
-  v[s] = v[f];
-  v[f] = tmp;
+  if(v[f] < v[s])
+  {
+	tmp = v[f];
+	v[f] = v[s];
+	v[s] = tmp;
 	return f;
+  }
+  else
+  {
+	tmp = v[f-1];
+	v[f-1] = v[s];
+	v[s] = tmp;
+	return f-1;
+  }
 }
 
 void qsort_rec( double v[], int first, int last ) {

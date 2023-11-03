@@ -1,4 +1,5 @@
 #include "insort.h"
+#include "q_sort.h"
 
 #include <stdio.h>  // wiadomo po co
 #include <stdlib.h> // funkcje atoi, malloc i rand
@@ -6,7 +7,7 @@
 
 void printv( double v[], int n ) {  // wypisuje wektor na stdout
 	int i;
-	int np=  n > MAX_ELEM_2_PRINT ? MAX_ELEM_2_PRINT : n;  // UWAGA: przy kompilacji trzeba zdefiniować MAX_ELEM_2_PRINT
+	int np =  n > MAX_ELEM_2_PRINT ? MAX_ELEM_2_PRINT : n;  // UWAGA: przy kompilacji trzeba zdefiniować MAX_ELEM_2_PRINT
                                                          //   np.: -DMAX_ELEM_2_PRINT=10
 	printf( "[" );
 	for( i= 0; i < np; i++ )
@@ -14,29 +15,41 @@ void printv( double v[], int n ) {  // wypisuje wektor na stdout
 	printf( "%s ]\n", np < n ? " ... " : "" );
 }
 
-int
-main( int argc, char **argv ) {
-	int n= argc > 1 ? atoi( argv[1] ) : 1000;
-  int i;
+int main( int argc, char **argv ) {
+	int n = argc > 1 ? atoi( argv[1] ) : 1000;
+	int i;
 
-	double *v= malloc( n * sizeof *v );
+	double *v = malloc( n * sizeof *v );
+	double *w = malloc( n * sizeof *w );
+	double x;
 
 	srand( argc > 2 ? atoi(argv[2]) : time(NULL) );
 
 	for( i= 0; i < n; i++ )
-		v[i] = rand() *10 / (double)RAND_MAX * n;
+	{
+		 x = rand() *10 / (double)RAND_MAX * n;
+		 v[i] = x;
+		 w[i] = x;
+	}
 
 	printf( "Wygenerowany wektor: " );
 	printv( v, n );
 
 	insort( v, n );
 	
-	printf( "Posortowany wektor: " );
+	printf( "Posortowany wektor insort: " );
 	printv( v, n );
 
+	q_sort( w, n );
+
+	printf( "Posortowany wektor q_sort: " );
+	printv( w, n );
+
 	for( i= 1; i <n; i++ )
-		if( v[i-1] > v[i] )
+		if( v[i-1] > v[i]) 
 			fprintf( stderr, "Zly algorytm sortowania: v[%d]==%g > v[%d]==%g\n", i-1, v[i-1], i, v[i] );
+		else if( w[i-1] > w[i] )
+			fprintf( stderr, "Zly algorytm sortowania: w[%d]==%g > w[%d]==%g\n", i-1, w[i-1], i, w[i] );
 
 	return 0;
 }
