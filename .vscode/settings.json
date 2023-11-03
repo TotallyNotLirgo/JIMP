@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.asm": "avr",
+        "*.s": "asm-collection",
+        "input": "plaintext",
+        "random": "c",
+        "limits": "c",
+        "algorithm": "c"
+    }
+}
