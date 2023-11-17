@@ -6,7 +6,7 @@
 
 int
 main( int argc, char **argv ) {
-  int ile_linii;
+  	int ile_linii;
 	char buf[BUFSIZE];
 
 	char *str= argc > 1 ? argv[1] : NULL;
@@ -27,7 +27,7 @@ main( int argc, char **argv ) {
 	while( fgets( buf, BUFSIZE, in ) != NULL ) {
 		ile_linii++;
 		if( strstr( buf, str ) != NULL )
-			printf( "%s", buf );
+			printf( "%s - Linia: %d\n", buf, ile_linii);
 	}
 	
 	return EXIT_SUCCESS;

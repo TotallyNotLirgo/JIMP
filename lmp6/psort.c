@@ -16,7 +16,7 @@ int
 main( int argc, char **argv ) {
 	int i;
 	char *kopia[MAXLINES];
-  int ile_linii;
+  	int ile_linii;
 
 	char buf[BUFSIZE];
 
